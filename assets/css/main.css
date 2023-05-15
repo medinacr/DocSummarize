@@ -10,4 +10,5 @@
 
 body {
     @apply overflow-x-hidden;
+    background-color: rgb(245 245 244);
 }
