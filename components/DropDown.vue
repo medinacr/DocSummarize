@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import {DropDown, DropDownSVG} from "#components";
+const emit = defineEmits(['selectedCoutry'])
 
 const props = defineProps({
     countries: Array,
@@ -10,18 +11,16 @@ const props = defineProps({
 let enabled = ref(false);
 const selected = ref(props.selected);
 const selectedCountry = ref(props.countries.find(c => c.id === selected.value));
-
 function toggleDropDown() {
     enabled.value = !enabled.value;
 }
-
-function selectCountry(country) {
-    console.log(country)
+function selectCountry(country,$event) {
+    $event.stopPropagation()
     selectedCountry.value = country;
     selected.value = country.id;
     enabled.value = false;
-    // Emit a 'country-selected' event with the newly selected country
-    //emit('country-selected', selectedCountry.value)
+    console.log(country)
+    emit("selectedCountry", country);
 }
 </script>
 
@@ -36,7 +35,7 @@ function selectCountry(country) {
         <div class="">
             <div v-if="enabled" class="absolute bg-white w-full top-full left-0 flex flex-col rounded-b-xl font-medium items-baseline  overflow-hidden">
                 <div v-for="country in countries" :key="country.id" class="px-4 py-3 hover:bg-stone-100 w-full"
-                     @click="() => selectCountry(country)">
+                     @click="($event) => selectCountry(country, $event)">
                     <span class="fi pr-2" :class="country.svg"></span>
                     {{ country.language }}
                 </div>

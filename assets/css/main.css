@@ -11,4 +11,7 @@
 body {
     @apply overflow-x-hidden;
     background-color: rgb(245 245 244);
+    background-image: url('/public/img/peakpx.jpg');
+    background-position: 50% 50%; /* Move image to the center */
 }
+
