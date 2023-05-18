@@ -12,6 +12,8 @@ const firstPrompt =
     }
 
 const summarizedText = ref([])
+let selectedCountry = ref('Spanish')
+const loading = ref(false)
 function getSavedSummaries() {
     const savedSummaries = localStorage.getItem('summary');
     if (savedSummaries) {
@@ -63,6 +65,10 @@ const countries = reactive([
     {id: 2, language:"Arabic",svg:"fi-ae"},
     {id: 3, language:"Russian",svg:"fi-ru"},
 ]);
+function countrySelected (country) {
+    selectedCountry.value = country.language
+    console.log(selectedCountry)
+}
 
 let sourceLanguageId = 0;
 let translatedLanguageId = 1;
@@ -83,11 +89,11 @@ onMounted(() => {
         </div>
 
         <DropDown :countries="countries" :selected="translatedLanguageId"
-                  @country-selected="translatedLanguageId = $event.id" />
+                  @country-selected="translatedLanguageId = $event.id" @selectedCountry = '(countrySelected)'/>
     </div>
 
     <div>
-        <TextEntry @response="storeSummarizedText"/>
+        <TextEntry @response="storeSummarizedText" :selectedCountry="selectedCountry"/>
     </div>
 
     <div>

@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import {DropDown, DropDownSVG} from "#components";
-const emit = defineEmits(['selectedCoutry'])
+const emit = defineEmits(['selectedCountry'])
 
 const props = defineProps({
     countries: Array,
@@ -19,7 +19,6 @@ function selectCountry(country,$event) {
     selectedCountry.value = country;
     selected.value = country.id;
     enabled.value = false;
-    console.log(country)
     emit("selectedCountry", country);
 }
 </script>
